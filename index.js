@@ -15,16 +15,20 @@ for (let item of arr) {
 // console.log(h);
 // console.log(h.pop());
 
-const testRl = new RateLimit("test", [1, 5]);
+const testRl = new RateLimit("test", 60, 5);
 const rl = new RateLimiter([testRl]);
 
 console.log(testRl);
 console.log(rl);
 
 const results = [];
-for (let i = 0; i < 10; i++) {
-  results.push(rl.canPass("test"));
-  execSync("sleep 1");
+results.push(rl.canPass("test"));
+
+for (let i = 0; i < 2; i++) {
+  for (let j = 0; j < 15; j++) {
+    results.push(rl.canPass("test"));
+  }
+  execSync("sleep 6");
 }
 
 console.log(results);
