@@ -21,11 +21,11 @@ class RateLimiter {
     }, {});
   }
 
-  _isWithinTimeLimit(rateLimit, requestTime) {
+  _isRequestWithinRateLimitWindow(rateLimit, requestTime) {
     return requestTime - rateLimit.previousRequest <= rateLimit.timeLimitMs;
   }
 
-  _isWithinRequestLimit(rateLimit) {
+  _isBelowRequestLimit(rateLimit) {
     return rateLimit.counter <= rateLimit.maxRequests;
   }
 
@@ -42,9 +42,9 @@ class RateLimiter {
       return true;
     }
 
-    if (!this._isWithinRequestLimit(limit)) {
+    if (!this._isBelowRequestLimit(limit)) {
       const currentRequest = new Date();
-      if (!this._isWithinTimeLimit(limit, currentRequest)) {
+      if (!this._isRequestWithinRateLimitWindow(limit, currentRequest)) {
         // latest request is outside (greater than) time limit
         limit.counter = 0;
         limit.previousRequest = currentRequest;
