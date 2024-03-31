@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
-    "dev": "nodemon ."
+    "test:debug": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" node --inspect-brk node_modules/.bin/jest --runInBand",
+    "watch": "nodemon ."
   },
   "author": "Prasanth Vaaheeswaran",
   "license": "MIT",
